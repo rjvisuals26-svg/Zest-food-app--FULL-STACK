@@ -1,1 +1,34 @@
-Full-Stack Food Delivery SystemIntroductionThis project is a Full-Stack Food Delivery System designed to demonstrate seamless communication between a React Native mobile application and a Node.js/Express backend server.The system focuses on two primary functionalities:Fetching and displaying a dynamic product menu from a local server.Capturing user orders from the mobile interface and instantly logging them into the server's terminal for administrative tracking.Tech StackThis project leverages modern web and mobile development standards:Frontend Environment: React Native using Expo CLI for rapid development and testing.Backend Runtime: Node.js to provide a JavaScript execution environment.Server Framework: Express.js for creating efficient RESTful API routes.Network Protocol: HTTP/REST, utilizing GET requests to fetch the menu and POST requests to submit orders.Data Protocol: RESTful API utilizing JSON for request and response payloads.Port Configuration & ArchitectureThe system relies on specific port bindings to manage multi-service communication across the Local Area Network (LAN):Port 6060: Dedicated to the Menu Inventory API via Final_menu.js.Port 5050/8080: Utilized for the Order Logging Service handled by server.js and order_logger.js.Backend ServicesMenu Hosting (Final_menu.js): * Acts as the foundation of the system's data architecture by storing a structured list of food items and serving it as a JSON API.Defines a GET route (/api/inventory) on Port 6060.Uses CORS middleware to grant the Expo Browser secure access to backend data.Integrates external high-quality Unsplash image URLs to reduce server storage load.Order Logging (order_logger.js & server.js):order_logger.js acts as a Verification Layer to ensure the communication channel is open.Provides a dedicated POST route (/place-order) to securely transmit customer cart data.Parses incoming JSON payloads and uses console.log() to provide an instantaneous, real-time display of order details in the VS Code Terminal.Sends a 200 OK status back to the Expo Browser to confirm data processing.Core FeaturesDynamic Menu Retrieval: Menu data is fetched dynamically from the backend using the useEffect hook, replacing static, hardcoded text.Asynchronous Order Handling: Orders are executed using an async/await pattern and POST requests to prevent the UI from blocking during network operations.Multi-Service Communication: System tasks are divided into a Data Retrieval (Menu) service and a Transaction Logging (Order) service to enable modular scalability.System WorkflowThe data flows through the system in the following sequence:ComponentPortMethodActionData FlowMobile App (Client)N/AHTTP GETRequest Menu/menu requestMenu Server6060HTTPSend Menu DataJSON responseMobile App (Client)N/AHTTP POSTPlace OrderOrder JSON payloadOrder Logger8080HTTPLog OrderStatus: 200 OKTerminal (Monitor)N/AConsoleDisplay Logs
+# Food App Backend & Frontend Integration
+
+This project demonstrates a full-stack integration for a food delivery application. It includes a multi-port backend architecture and a React Native frontend.
+
+## 🚀 Project Components
+
+**1. Menu Server (Port 6060)**
+* **Task:** Provides a JSON catalog of food items.
+* **Data Structure:** Each item includes `id`, `name`, `price`, `category`, and a visual image URL.
+* **Endpoint:** `GET http://localhost:6060/api/inventory`
+* **File:** `Final_menu.js`
+
+**2. Order Logger Service (Port 5050 / 8080)**
+* **Task:** Acts as a receiver for incoming orders.
+* **Functionality:** Receives POST requests from the mobile app and prints real-time order details to the terminal.
+* **Endpoint:** `POST /place-order`
+* **Files:** `order_logger.js` (Port 8080) and `server.js` (Port 5050).
+
+**3. Mobile Frontend (React Native)**
+* Utilizes the native `fetch` API to connect with both backend services.
+* Successfully handles real-time data transmission and state management.
+
+## 🛠️ How to Run
+
+1. **Clone the repository:** `git clone [Your Repository Link Here]`
+2. **Start the Menu Server:** Run `node Final_menu.js`
+3. **Start the Order Logger:** Run `node server.js` (or `node order_logger.js` for readiness validation)
+4. **Run the App:** Ensure your Static IP address (e.g., 192.168.1.109) is updated in your fetch requests to bypass localhost limitations, and run your Expo project.
+
+## ✅ Deliverables Checklist
+* [x] Single Server files for Menu & Logging.
+* [x] Web-based Image URLs (Visual Catalog).
+* [x] Terminal Logging for Order confirmation.
+* [x] Documentation with screenshots (PDF).
